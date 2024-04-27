@@ -84,7 +84,11 @@ export const getUsers = query({
     }
 
     const users = await ctx.db.query("users").collect()
-    return users
+
+    // return all users without the current user
+    return users.filter(
+      (user) => user.tokenIdentifier !== identity.tokenIdentifier
+    )
   },
 })
 
