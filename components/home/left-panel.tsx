@@ -1,17 +1,17 @@
+"use client"
+
 import { conversations } from "@/dummy-data/db"
-import { SignedIn, SignOutButton, UserButton } from "@clerk/nextjs"
-import {
-  ListFilter,
-  LogOut,
-  MessageSquareDiff,
-  Search,
-  User,
-} from "lucide-react"
+import { UserButton } from "@clerk/nextjs"
+import { useConvexAuth } from "convex/react"
+import { ListFilter, Search } from "lucide-react"
 import ThemeSwitch from "../theme-switch"
 import { Input } from "../ui/input"
 import Conversation from "./conversation"
+import UserListDialog from "./user-list-dialog"
 
 const LeftPanel = () => {
+  const { isAuthenticated } = useConvexAuth()
+
   return (
     <div className="w-1/4 border-gray-600 border-r">
       <div className="sticky top-0 bg-left-panel z-10">
@@ -24,8 +24,9 @@ const LeftPanel = () => {
           </SignedIn> */}
 
           <div className="flex items-center gap-3">
-            <MessageSquareDiff size={20} />{" "}
             {/* TODO: This line will be replaced with <UserListDialog /> */}
+            {/* <MessageSquareDiff size={20} />{" "} */}
+            {isAuthenticated && <UserListDialog />}
             <ThemeSwitch />
             {/* <LogOut size={20} className="cursor-pointer" /> */}
           </div>
